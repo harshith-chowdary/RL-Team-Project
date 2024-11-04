@@ -1,0 +1,13 @@
+name: rl-project
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - gym
+  - mujoco
+  - pip
+  - pip:
+      - metadrive
+      - mujoco-py
+      - pettingzoo[magent]
+      - flatland-rl

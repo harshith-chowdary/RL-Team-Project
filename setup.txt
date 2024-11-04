@@ -1,0 +1,19 @@
+// Setup env
+conda env create -f environment.yml
+conda activate rl-project
+
+// Verify installations
+python -c "import gym; print('Gym imported successfully')"
+
+python -c "import metadrive; print('MetaDrive imported successfully')"
+// If above gives an error stating missing 'libfuse'
+    sudo apt-get update
+    sudo apt-get install libfuse2
+
+    And relaunch the environment, test again
+
+python -c "import mujoco_py; print('MuJoCo-Py imported successfully')"
+// If above gives an error follow https://github.com/openai/mujoco-py#install-mujoco
+
+python -c "import pettingzoo; print('PettingZoo imported successfully')"
+python -c "import flatland; print('Flatland imported successfully')"

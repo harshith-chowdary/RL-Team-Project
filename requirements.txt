@@ -1,0 +1,10 @@
+gym==0.21.0
+numpy
+torch
+matplotlib
+pymarl
+metadrive
+flatland-rl
+pettingzoo[magent]
+mujoco
+mujoco-py
