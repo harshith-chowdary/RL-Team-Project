@@ -1,5 +1,9 @@
 from metadrive import MetaDriveEnv
 import tqdm
+import gym
+import numpy as np
+from stable_baselines.sac.policies import MlpPolicy
+from stable_baselines import SAC
 
 training_env = MetaDriveEnv(dict(
     num_scenarios=1000,
@@ -18,21 +22,6 @@ test_env = MetaDriveEnv(dict(
     random_lane_num=True
 ))
 
-for training_epoch in range(2):
-    # training
-    training_env.reset()
-    print("\nStart fake training epoch {}...".format(training_epoch))
-    for _ in range(10):
-        # execute 10 step
-        training_env.step(training_env.action_space.sample())
-    training_env.close()
-
-    # evaluation
-    print("Evaluate checkpoint for training epoch {}...\n".format(training_epoch))
-    test_env.reset()
-    for _ in range(10):
-        # execute 10 evaluation step
-        test_env.step(test_env.action_space.sample())
-    test_env.close()
-
-assert test_env.config is not training_env.config
+model = SAC(MlpPolicy, env, verbose=1)
+model.learn(total_timesteps=50000, log_interval=10)
+model.save("meta-drive")
