@@ -75,6 +75,17 @@ def evaluate_sequential(args, runner):
 
 def run_sequential(args, logger):
 
+
+
+
+
+
+
+
+
+
+
+    
     # Init runner so we can get env info
     runner = r_REGISTRY[args.runner](args=args, logger=logger)
 
@@ -100,17 +111,52 @@ def run_sequential(args, logger):
         "actions": ("actions_onehot", [OneHot(out_dim=args.n_actions)])
     }
 
+
+
+
+
+
+
+
+    
     buffer = ReplayBuffer(scheme, groups, args.buffer_size, env_info["episode_limit"] + 1,
                           preprocess=preprocess,
                           device="cpu" if args.buffer_cpu_only else args.device)
 
+
+
+
+
+
+
+
+
+    
     # Setup multiagent controller here
     mac = mac_REGISTRY[args.mac](buffer.scheme, groups, args)
 
+
+
+
+
+
+
+
+    
     # Give runner the scheme
     runner.setup(scheme=scheme, groups=groups, preprocess=preprocess, mac=mac)
 
+
+
+
+
+
+
+
+
+    
     # Learner
+    
     learner = le_REGISTRY[args.learner](mac, buffer.scheme, logger, args)
 
     if args.use_cuda:
@@ -160,6 +206,17 @@ def run_sequential(args, logger):
 
     logger.console_logger.info("Beginning training for {} timesteps".format(args.t_max))
 
+
+
+    
+    """
+    Basically, the environment is not dealt with directly but through the runner. 
+    The runner has got several helper functions that allow it to interact with 
+    the environment class. 
+    """
+
+
+    
     while runner.t_env <= args.t_max:
 
         # Run for a whole episode at a time
