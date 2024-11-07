@@ -2,8 +2,8 @@ from metadrive import MetaDriveEnv
 import tqdm
 import gym
 import numpy as np
-from stable_baselines.sac.policies import MlpPolicy
-from stable_baselines import SAC
+from stable_baselines3.sac.policies import MlpPolicy
+from stable_baselines3 import SAC
 from metadrive.envs.gym_wrapper import createGymWrapper
 
 training_env = MetaDriveEnv(dict(
