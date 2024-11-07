@@ -1,6 +1,6 @@
 from metadrive import MetaDriveEnv
 import tqdm
-import gym
+import gymnasium as gym
 import numpy as np
 from stable_baselines3.sac.policies import MlpPolicy
 from stable_baselines3 import SAC
